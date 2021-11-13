@@ -21,18 +21,26 @@ class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        char task = '1';
+        Password password = new Password();
+
+
 
         try {
-            while (task == '1') {
-                Operations op = new Operations();
-                op.makeEntry();
+            if (password.askForPassword()) {
+                System.out.println("Sikeres belépés!");
+                char task = '1';
 
-                System.out.print("\nOpciók:\n1. További művelet\n2. Kilépés");
-                System.out.print("\nVálasszon műveletet: ");
+                while (task == '1') {
+                    Operations op = new Operations();
+                    op.makeEntry();
 
-                task = scanner.next().charAt(0);
+                    System.out.print("\nOpciók:\n1. További művelet\n2. Kilépés");
+                    System.out.print("\nVálasszon műveletet: ");
+
+                    task = scanner.next().charAt(0);
+                }
             }
+
         } catch (Exception e) {
             System.out.println(e);
         }
