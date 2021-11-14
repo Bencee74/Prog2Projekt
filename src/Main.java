@@ -27,18 +27,38 @@ class Main {
 
         try {
             if (password.askForPassword()) {
-                System.out.println("Sikeres belépés!");
                 char task = '1';
+                System.out.println("Sikeres belépés!");
+                do {
+                    Operations operations = new Operations();
 
-                while (task == '1') {
-                    Operations op = new Operations();
-                    op.makeEntry();
-
-                    System.out.print("\nOpciók:\n1. További művelet\n2. Kilépés");
-                    System.out.print("\nVálasszon műveletet: ");
+                    System.out.print("\nVálasszon műveletet:\n");
+                    System.out.print("1. Új bejegyzés\n" +
+                                    "2. Napi kiadások\n");
 
                     task = scanner.next().charAt(0);
-                }
+
+                    switch (task) {
+                        case '1':
+                            operations.makeEntry();
+                            break;
+                        case '2':
+                            operations.expensesOfDay();
+                            break;
+
+                    }
+                    System.out.print("\nOpciók:\n1. További művelet\n2. Kilépés\n");
+                    task = scanner.next().charAt(0);
+
+                    switch (task) {
+                        case '1':
+
+                    }
+
+                } while (task == '1');
+
+
+
             }
 
         } catch (Exception e) {

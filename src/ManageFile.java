@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -75,6 +76,38 @@ class ManageFile {
         if (date.length() == 10)
             yearMonth = arr[0].toString().concat(arr[1].toString());
         return yearMonth;
+    }
+
+    public ArrayList<Item> dayDetails(String date) throws IOException
+    {
+
+        logFile = new File("kiadasok_" + currentYearAndMonth(date) + ".txt");
+        FileReader fileReader = new FileReader(logFile);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String temp;
+
+        ArrayList<Item> arrayList = new ArrayList<>();
+        while((temp = bufferedReader.readLine()) != null ){
+            Item item = new Item();
+            StringTokenizer stringTokenizer = new StringTokenizer(temp, "\t");
+            String[] str = new String[5];
+            int i = 0;
+            while(stringTokenizer.hasMoreTokens()){
+                str[i] = stringTokenizer.nextToken();
+                i++;
+            }
+
+            if(str[2].equals(date))
+            {
+                item.setDate(str[2]);
+                item.setName(str[3]);
+                item.setCost(Integer.parseInt(str[4]));
+                arrayList.add(item);
+            }
+        }
+        fileReader.close();
+
+        return arrayList;
     }
 }
 

@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -8,6 +9,38 @@ class Operations {
     ManageBudget manageBudget = new ManageBudget();
     ManageFile file = new ManageFile();
 
+    class ManageBudget {
+
+        public boolean budgetCheck(int budget, int expense, int cost) {
+            if (budget < (expense + cost)) return true;
+            else return false;
+        }
+
+        public int getExpense(String temp) {
+            StringTokenizer stringTokenizer = new StringTokenizer(temp, " ");
+            int[] a = {0, 0};
+            int i = 0;
+            while (stringTokenizer.hasMoreTokens()) {
+                a[i] = Integer.parseInt(stringTokenizer.nextToken());
+                i++;
+            }
+
+            return a[1];
+        }
+        public int getBudget(String temp) {
+            StringTokenizer stringTokenizer = new StringTokenizer(temp, " ");
+            int[] a = {0, 0};
+            int i = 0;
+            while(stringTokenizer.hasMoreTokens())
+            {
+                a[i] = Integer.parseInt(stringTokenizer.nextToken());
+                i++;
+            }
+
+            return a[0];
+        }
+    }
+    /* 1 ------------------------------------------------------------------- */
 
     public void makeEntry() {
 
@@ -50,36 +83,27 @@ class Operations {
         }
 
     }
-}
 
-class ManageBudget {
+    /* 2 ------------------------------------------------------------------- */
 
-    public boolean budgetCheck(int budget, int expense, int cost) {
-        if (budget < (expense + cost)) return true;
-        else return false;
+    public void expensesOfDay() throws IOException{
+
+        System.out.print("\nAdd meg a dátumot (éééé.hh.nn): ");
+        String date = scanner.next();
+        detailsOfDate(date);
     }
+    private void detailsOfDate(String date) throws IOException {
 
-    public int getExpense(String temp) {
-        StringTokenizer stringTokenizer = new StringTokenizer(temp, " ");
-        int[] a = {0, 0};
-        int i = 0;
-        while (stringTokenizer.hasMoreTokens()) {
-            a[i] = Integer.parseInt(stringTokenizer.nextToken());
-            i++;
+        ArrayList<Item> arrayList = file.dayDetails(date);
+        int n = arrayList.size();
+        if(n == 0)
+            System.out.print("\nEzen a napon még nincs bejegyzés");
+        else{
+            System.out.println("\n" + date + " napon történt kiadás adatai: ");
+            for(int i = 0; i < n; i++){
+                Item item = arrayList.get(i);
+                System.out.println((i+1) + " : " + "\nTermék: " + item.getName() + "\nKiadás: " + item.getCost() + "HUF");
+            }
         }
-
-        return a[1];
-    }
-    public int getBudget(String temp) {
-        StringTokenizer stringTokenizer = new StringTokenizer(temp, " ");
-        int[] a = {0, 0};
-        int i = 0;
-        while(stringTokenizer.hasMoreTokens())
-        {
-            a[i] = Integer.parseInt(stringTokenizer.nextToken());
-            i++;
-        }
-
-        return a[0];
     }
 }
