@@ -50,11 +50,6 @@ class Main {
                     System.out.print("\nOpciók:\n1. További művelet\n2. Kilépés\n");
                     task = scanner.next().charAt(0);
 
-                    switch (task) {
-                        case '1':
-
-                    }
-
                 } while (task == '1');
 
 
