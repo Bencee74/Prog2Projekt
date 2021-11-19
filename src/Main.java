@@ -34,7 +34,9 @@ class Main {
 
                     System.out.print("\nVálasszon műveletet:\n");
                     System.out.print("1. Új bejegyzés\n" +
-                                    "2. Napi kiadások\n");
+                                    "2. Adott nap kiadásai\n" +
+                                    "3. Adott havi tőke állása\n" +
+                                    "4. Adott havi log törlése\n");
 
                     task = scanner.next().charAt(0);
 
@@ -44,6 +46,12 @@ class Main {
                             break;
                         case '2':
                             operations.expensesOfDay();
+                            break;
+                        case '3':
+                            operations.displayMonthExpense();
+                            break;
+                        case '4':
+                            operations.deleteMonthLog();
                             break;
 
                     }

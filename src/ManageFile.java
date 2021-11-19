@@ -35,8 +35,8 @@ class ManageFile {
         }
         FileReader fileReader = new FileReader(logFile);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
-        String currentBudgetAndExpense = null;
-        String line, last = null;
+        String currentBudgetAndExpense;
+        String line, last  = null;
         if (bufferedReader.readLine() == null) {
             currentBudgetAndExpense = null;
         } else {
@@ -58,7 +58,7 @@ class ManageFile {
 
     }
 
-    private String currentYearAndMonth(String date) {
+    public String currentYearAndMonth(String date) {
 
         String yearMonth = "";
         int i = 0;
