@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
 
@@ -35,11 +34,14 @@ class ManageFile {
         }
         FileReader fileReader = new FileReader(logFile);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
+
         String currentBudgetAndExpense;
         String line, last  = null;
+
         if (bufferedReader.readLine() == null) {
             currentBudgetAndExpense = null;
-        } else {
+        }
+        else {
             while ((line = bufferedReader.readLine()) != null) {
                 last = line;
             }
@@ -51,7 +53,7 @@ class ManageFile {
                 arr[i] = stringTokenizer.nextToken();
                 i++;
             }
-            currentBudgetAndExpense = arr[0].toString().concat(" " + arr[1].toString());
+            currentBudgetAndExpense = arr[0].concat(" " + arr[1]);
         }
         bufferedReader.close();
         return currentBudgetAndExpense;
@@ -74,7 +76,7 @@ class ManageFile {
             i++;
         }
         if (date.length() == 10)
-            yearMonth = arr[0].toString().concat(arr[1].toString());
+            yearMonth = arr[0].concat(arr[1]);
         return yearMonth;
     }
 
@@ -109,39 +111,35 @@ class ManageFile {
 
         return arrayList;
     }
-}
 
-class Password {
 
-    Scanner scanner = new Scanner(System.in);
-    String password;
+    public ArrayList<Item> currentMonthLog(String date) throws IOException {
 
-    private String getPassword() throws IOException {
-        FileReader fileReader = new FileReader("password.txt");
+        logFile = new File("kiadasok_" + currentYearAndMonth(date) + ".txt");
+        FileReader fileReader = new FileReader(logFile);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
-        String pass = bufferedReader.readLine();
+        bufferedReader.readLine();
 
-        bufferedReader.close();
-        return pass;
-    }
-    public boolean askForPassword() throws IOException {
-        System.out.print("Add meg a jelszót: ");
-        password = scanner.nextLine();
-        checkPassword(password);
+        String temp;
 
-        return true;
-    }
+        ArrayList<Item> arrayList = new ArrayList<>();
 
-    private boolean checkPassword(String pass) throws IOException {
-        while(!pass.equals(getPassword())){
-            System.out.print("A megadott jelszó helytelen!\n");
-            System.out.print("Adja meg újra a jelszót: ");
-            pass = scanner.next();
+        while((temp = bufferedReader.readLine()) != null ){
+            Item item = new Item();
+            StringTokenizer stringTokenizer = new StringTokenizer(temp, "\t");
+            String[] str = new String[5];
+            int i = 0;
+            while(stringTokenizer.hasMoreTokens()){
+                str[i] = stringTokenizer.nextToken();
+                i++;
+            }
 
-            if (pass.equals(getPassword()))
-                break;
+            item.setDate(str[2]);
+            item.setName(str[3]);
+            item.setCost(Integer.parseInt(str[4]));
+            arrayList.add(item);
         }
-        return true;
+        bufferedReader.close();
+        return arrayList;
     }
-
 }
